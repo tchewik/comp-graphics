@@ -39,14 +39,14 @@ public:
 		line(_points[2].x, _points[2].y, _points[3].x, _points[3].y);
 		line(_points[3].x, _points[3].y, _points[0].x, _points[0].y);
 	}
-	void draw_spiral(int times, int counter = 1){
+	void draw_circle(int times, int counter = 1){
 		_angle = _angle / counter;
 		draw(rand());
 		// uncomment to draw a boring white square
 		//draw(WHITE);
 		if (times != ++counter){
 			Square tmp(_points[1].x, _points[1].y, _length, _angle * counter);
-			tmp.draw_spiral(times, counter);
+			tmp.draw_circle(times, counter);
 		}
 	}
 };
@@ -62,7 +62,7 @@ int main(){
 	// sqr.draw();
 
 	// draw a chain of squares
-	sqr.draw_spiral(20);
+	sqr.draw_circle(20);
 
 	_getch();
 	closegraph();
