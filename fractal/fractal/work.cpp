@@ -26,7 +26,7 @@ public:
 		_points[3].x = _points[2].x - _length * cos(_angle);
 		_points[3].y = _points[2].y + _length * sin(_angle);
 	}
-	void draw(int color){
+	void draw(int color = WHITE){
 		// uncomment to accent the first point
 		//
 		// setcolor(RED);
@@ -39,14 +39,31 @@ public:
 		line(_points[2].x, _points[2].y, _points[3].x, _points[3].y);
 		line(_points[3].x, _points[3].y, _points[0].x, _points[0].y);
 	}
-	void draw_circle(int times, int counter = 1){
-		_angle = _angle / counter;
-		draw(rand());
+	void draw_circle(int times, int counter = 1, bool main = true){
+		_angle /= counter;
+		
 		// uncomment to draw a boring white square
-		//draw(WHITE);
-		if (times != ++counter){
-			Square tmp(_points[1].x, _points[1].y, _length, _angle * counter);
-			tmp.draw_circle(times, counter);
+		//if (_angle >= 0)
+		//	_angle *= -1;
+		
+		draw();
+		draw_chain(counter);
+		if (main){
+			if (times >= ++counter){
+				double angle = _angle < 0 ? _angle : _angle *= -1;
+				Square tmp(_points[1].x, _points[1].y, _length, angle * counter);
+				tmp.draw_circle(times, counter);
+			}
+		}
+	}
+	void draw_chain(int times, int counter = 1){
+		_angle /= counter;
+		draw();
+
+		if (times >= ++counter){
+			double angle = _angle > 0 ? _angle : _angle *= -1;
+			Square tmp(_points[3].x, _points[3].y, _length, angle * counter);
+			tmp.draw_chain(times, counter);
 		}
 	}
 };
@@ -55,14 +72,14 @@ int main(){
 	int gddriver = DETECT, gmode, errorcode;
 	initgraph(&gddriver, &gmode, "");
 
-	// use negative angles
-	Square sqr(400, 300, 40, -0.6);
+	Square sqr(400, 300, 40, -0.2);
 
 	// uncomment to draw a single square
 	// sqr.draw();
 
 	// draw a chain of squares
-	sqr.draw_circle(20);
+	sqr.draw_circle(6);
+	//sqr.draw_chain(6);
 
 	_getch();
 	closegraph();
