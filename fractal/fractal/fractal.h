@@ -1,8 +1,9 @@
 #ifndef FRACTAL_H
 #define FRACTAL_H
-#pragma once
 
 #include "graphics.h"
+
+#define PI2 1.5708
 
 struct Point{
 	double x, y;
@@ -10,14 +11,14 @@ struct Point{
 
 class Square{
 private:
-	Point _points[4];
 	double _length,
 		_angle;
 public:
+	Point _points[4];
 	Square(double x, double y, double length, double angle = 0.0);
 	void draw(int color = WHITE, bool highlight_first_point = false);
 	void draw_circle(int times, int counter = 1);
-	void draw_squares_recursive(int depth, int color = TX_PINK);
+	void draw_squares_recursive(int depth, double gamma, int color = TX_PINK);
 };
 
 Square::Square(double x, double y, double length, double angle){
@@ -53,16 +54,16 @@ void Square::draw_circle(int times, int counter){
 	}
 }
 
-void Square::draw_squares_recursive(int depth, int color){
+void Square::draw_squares_recursive(int depth, double gamma, int color){
 	draw(color);
 	if (--depth >= 0){
-		Square tmp(_points[3].x, _points[3].y, _length, _angle * 2);
-		tmp.draw_squares_recursive(depth);
+		Square tmp(_points[3].x, _points[3].y, _length, _angle + gamma);
+		tmp.draw_squares_recursive(depth, gamma, color);
 
 		double length = sqrt(pow(_points[2].x - tmp._points[1].x, 2) + pow(tmp._points[1].y - _points[2].y, 2));
-		double angle = 3.15159 / 2 - (3.14159 - tmp._angle - _angle) / 2;
-		Square tmp_0(_points[2].x, _points[2].y, length, angle);
-		tmp_0.draw_squares_recursive(depth);
+		double angle = 3.15159 / 2 - (3.14159 - tmp._angle - _angle-gamma) / 2; //????
+		Square tmp_0(_points[1].x, _points[1].y, length, angle - PI2); //?????
+		tmp_0.draw_squares_recursive(depth, gamma, color + 120);
 	}
 }
 
