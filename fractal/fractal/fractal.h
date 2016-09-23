@@ -4,6 +4,8 @@
 #include "graphics.h"
 #define M_PI_2 1.57079632679489661923 
 
+#define PI2 1.5708
+
 struct Point{
 	double x, y;
 };
@@ -42,7 +44,7 @@ Point Square::get(int i){
 void Square::draw(int color, bool highlight_first_point){
 	setcolor(color);
 	if (highlight_first_point)
-		circle(_points[0].x, _points[0].y, 5);
+		//circle(_points[0].x, _points[0].y, 5);
 	line(_points[0].x, _points[0].y, _points[1].x, _points[1].y);
 	line(_points[1].x, _points[1].y, _points[2].x, _points[2].y);
 	line(_points[2].x, _points[2].y, _points[3].x, _points[3].y);
