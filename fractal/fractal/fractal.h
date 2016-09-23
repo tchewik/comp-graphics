@@ -1,8 +1,8 @@
 #ifndef FRACTAL_H
 #define FRACTAL_H
-#pragma once
 
 #include "graphics.h"
+#define M_PI_2 1.57079632679489661923 
 
 struct Point{
 	double x, y;
@@ -10,14 +10,15 @@ struct Point{
 
 class Square{
 private:
-	Point _points[4];
 	double _length,
 		_angle;
+	Point _points[4];
 public:
 	Square(double x, double y, double length, double angle = 0.0);
+	Point get(int i);
 	void draw(int color = WHITE, bool highlight_first_point = false);
 	void draw_circle(int times, int counter = 1);
-	void draw_squares_recursive(int depth, int color = TX_PINK);
+	void draw_squares_recursive(int depth, double gamma, int color = TX_PINK);
 };
 
 Square::Square(double x, double y, double length, double angle){
@@ -31,6 +32,11 @@ Square::Square(double x, double y, double length, double angle){
 	_points[2].y = _points[1].y - _length * cos(_angle);
 	_points[3].x = _points[2].x - _length * cos(_angle);
 	_points[3].y = _points[2].y + _length * sin(_angle);
+}
+
+Point Square::get(int i){
+	if (i > -1 && i < 4)
+		return _points[i];
 }
 
 void Square::draw(int color, bool highlight_first_point){
@@ -53,16 +59,22 @@ void Square::draw_circle(int times, int counter){
 	}
 }
 
-void Square::draw_squares_recursive(int depth, int color){
-	draw(color);
+void Square::draw_squares_recursive(int depth, double gamma, int color){
+	draw(rand(), true);
 	if (--depth >= 0){
-		Square tmp(_points[3].x, _points[3].y, _length, _angle * 2);
-		tmp.draw_squares_recursive(depth);
+		double length_0 = _length * cos(gamma);
+		Square tmp(_points[3].x, _points[3].y, length_0, _angle + gamma);
+		tmp.draw_squares_recursive(depth, gamma, color);
 
-		double length = sqrt(pow(_points[2].x - tmp._points[1].x, 2) + pow(tmp._points[1].y - _points[2].y, 2));
-		double angle = 3.15159 / 2 - (3.14159 - tmp._angle - _angle) / 2;
-		Square tmp_0(_points[2].x, _points[2].y, length, angle);
-		tmp_0.draw_squares_recursive(depth);
+		//(Œƒ»Õ¿ Œ¬€≈  ¬¿ƒ–¿“€)
+		//double length_1 = sqrt(pow(_points[2].x - tmp._points[1].x, 2) + pow(tmp._points[1].y - _points[2].y, 2));
+		//double angle = -1 * (M_PI_2 + gamma / 2.0 - tmp._angle);
+
+		double length_1 = _length * sin(gamma);
+		double angle = tmp._angle - M_PI_2;
+		
+		Square tmp_0(tmp._points[1].x, tmp._points[1].y, length_1, angle);
+		tmp_0.draw_squares_recursive(depth, gamma, color);
 	}
 }
 
