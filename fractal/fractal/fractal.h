@@ -53,13 +53,16 @@ void Square::draw_squares_recursive(int depth, double gamma, int color){
 	if (--depth >= 0){
 		Square tmp(_points[3].x, _points[3].y, _length * cos(gamma), _angle + gamma);
 		tmp.draw_squares_recursive(depth, gamma, color);
+		Square(tmp._points[1].x, tmp._points[1].y, _length * sin(gamma), tmp._angle - M_PI_2).draw_squares_recursive(depth, gamma, color);
 
-		//(ОДИНАКОВЫЕ КВАДРАТЫ)
-		//double length = sqrt(pow(_points[2].x - tmp._points[1].x, 2) + pow(tmp._points[1].y - _points[2].y, 2));
-		//double angle = -1 * (M_PI_2 + gamma / 2.0 - tmp._angle);
-		
-		Square tmp_0(tmp._points[1].x, tmp._points[1].y, _length * sin(gamma), tmp._angle - M_PI_2);
-		tmp_0.draw_squares_recursive(depth, gamma, color);
+		/*
+		/* ОДИНАКОВЫЕ КВАДРАТЫ
+		/* Ужасно жаль удалять фантастические расчеты. (Побрекито)
+		double length = sqrt(pow(_points[2].x - tmp._points[1].x, 2) + pow(tmp._points[1].y - _points[2].y, 2));
+		double angle = -1 * (M_PI_2 + gamma / 2.0 - tmp._angle);
+		Square(tmp._points[1].x, tmp._points[1].y, length, angle).draw_squares_recursive(depth, gamma, color);
+		*/
+
 	}
 }
 
