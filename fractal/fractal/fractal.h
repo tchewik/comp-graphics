@@ -36,6 +36,7 @@ Square::Square(double x, double y, double length, double angle){
 Point Square::getPoint(int i){
 	if (i > -1 && i < 4)
 		return _points[i];
+	return Point{ 0, 0 };
 }
 
 void Square::draw(int color, bool highlight_first_point){

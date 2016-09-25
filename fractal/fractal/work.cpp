@@ -13,7 +13,7 @@ int main(){
 	int gddriver = DETECT, gmode, errorcode;
 	initgraph(&gddriver, &gmode, "");
 
-	Square(520, 700, 120, 0).draw_squares_recursive(10, toRad(45), LIGHTGREEN);
+	Square(520, 700, 120, 0).draw_squares_recursive(13, toRad(45), LIGHTGREEN);
 
 	_getch();
 	closegraph();
