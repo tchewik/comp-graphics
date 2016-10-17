@@ -12,7 +12,7 @@ int main(){
 	int gddriver = DETECT, gmode, errorcode;
 	initgraph(&gddriver, &gmode, "");
 
-	Square(520, 700, 120, 0.00666).draw_squares_recursive(9, toRad(34), 13);
+	Square(520, 700, 120, 0.00666).draw_squares_recursive(8, toRad(34), 13);
 
 	_getch();
 	closegraph();

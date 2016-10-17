@@ -16,7 +16,6 @@ void drawLine(int x1, int y1, int x2, int y2, int color){
 	int e = 0;
 	int i = x1, j = y1;
 	while (i < x2+1 && j < y2+1){
-		//for (int i=x1; i<x2+1; i++){
 		if (e>=N){
 			j++;
 			putpixel(i, j, color);
@@ -24,10 +23,8 @@ void drawLine(int x1, int y1, int x2, int y2, int color){
 		}
 		else {
 				i++;
-				e += M;
-				//line(i, y1, i+2, y1+2);	
-				// @TODO: putPixel: где-то он должен использоваться два раза
 				putpixel(i, j, color);	
+				e += M;
 			}
 	}
 }
