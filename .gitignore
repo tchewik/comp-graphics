@@ -28,6 +28,6 @@
 *.app
 
 # Fuck Dev C++
-*.dev
+
 *.layout
 *.win
