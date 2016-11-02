@@ -18,7 +18,7 @@ LineDrawer::~LineDrawer(){
 }
 
 void LineDrawer::draw(int x0, int y0, int x1, int y1, int color){
-
+	
 	if (x0 > x1) std::swap(x0, x1);
 	if (y0 > y1) std::swap(y0, y1);
 	int N = x1 - x0;	// <0
