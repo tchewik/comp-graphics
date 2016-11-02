@@ -29,7 +29,7 @@ Model::Model(char *path){
 		}
 	}
 
-	std::cout << "# v#" << points_.size() << "; f#" << flats_.size() << std::endl;
+	//std::cout << "# v#" << points_.size() << "; f#" << flats_.size() << std::endl;
 }
 
 Model::~Model(){
