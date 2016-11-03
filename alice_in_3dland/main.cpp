@@ -8,7 +8,7 @@ int main(int argc, char **argv){
 	
 	LineDrawer drawer;
 	
-	//(Model("cube.obj", &drawer)).draw();
+	(Model("cube.obj", &drawer, 50, 50)).draw();
 	
 	//modifyFormatObj("bashka.obj", "formattedbashka.obj");
 	(Model("formattedbashka.obj", &drawer, 700, 700)).draw();

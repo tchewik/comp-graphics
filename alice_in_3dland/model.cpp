@@ -84,7 +84,7 @@ void Model::draw(){
             int x0 = (v0[0] + 1.) * (this->width / 2.); 
             int y0 = (v0[1] + 1.) * (this->height / 2.);
             int x1 = (v1[0] + 1.) * (this->width / 2.);
-            int y1 = (v1[1] + 1.) * (this->width / 2.);
+            int y1 = (v1[1] + 1.) * (this->height / 2.);
 
             drawer->draw(x0, y0, x1, y1, 15);
             
