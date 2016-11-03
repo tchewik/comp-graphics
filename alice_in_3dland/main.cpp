@@ -1,11 +1,13 @@
 #include "model.h"
 #include "linedrawer.h"
-#include "graphics.h"
-#include <vector>
+#include <conio.h>
 
 int main(int argc, char **argv){
-	Model model;
-	//drawer.draw(100, 100, 900, 200, 13);
 	
+	LineDrawer drawer;	
+	(Model("cube.obj", &drawer)).draw();
+	
+	_getch();
+
 	return 0;
 }

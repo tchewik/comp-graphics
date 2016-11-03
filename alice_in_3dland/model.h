@@ -8,9 +8,9 @@ class Model {
 private:
 	std::vector<std::vector<float> > points_;
 	std::vector<std::vector<int> > flats_;
-	static LineDrawer drawer;
+	LineDrawer *drawer;
 public:
-	Model(char *path = "cube.obj");
+	Model(char *path, LineDrawer *drawer);
 	~Model();
 	void showPoints();
 	void showFlats();

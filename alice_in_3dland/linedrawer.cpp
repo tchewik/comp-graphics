@@ -4,15 +4,14 @@
 #include <conio.h>
 
 LineDrawer::LineDrawer(){
-	
+
 	int gddriver = DETECT, gmode, errorcode;
 	initgraph(&gddriver, &gmode, "");
-	
+
 }
 
 LineDrawer::~LineDrawer(){
 	
-	_getch();
 	closegraph();
 	
 }

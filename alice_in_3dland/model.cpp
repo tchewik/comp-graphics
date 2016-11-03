@@ -1,12 +1,14 @@
 #include "model.h"
 #include "linedrawer.h"
-#include "graphics.h"
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <sstream>
 
-Model::Model(char *path){
+Model::Model(char *path, LineDrawer *drawer){
+	
+	this->drawer = drawer;
+	
 	std::ifstream in;
 	in.open(path, std::ifstream::in);
 	if (in.fail()) return;
@@ -31,6 +33,7 @@ Model::Model(char *path){
 		}
 	}
 
+	
 	std::clog << "# v#" << points_.size() << "; f#" << flats_.size() << std::endl;
 }
 
@@ -55,10 +58,10 @@ void Model::showFlats(){
 }
 
 void Model::draw(){
-
 	for (int i = 0; i < flats_.size(); i++) {
         std::vector<int> flat = flats_[i];
         for (int j = 0; j < 3; j++) {
+        	std::cout << j;
         	std::vector<float> v0 = points_[flat[j]];
             //Vec3f v0 = model->vert(face[j]);
             std::vector<float> v1 = points_[flat[(j + 1) % 3]];
@@ -67,8 +70,9 @@ void Model::draw(){
             int y0 = (v0[1]+1.);
             int x1 = (v1[0]+1.);
             int y1 = (v1[1]+1.);
-            
-            drawer.draw(x0, y0, x1, y1, 15);
+
+            //drawer->draw(x0, y0, x1, y1, 15);
+            std::cout << x0 << '\t' << y0 << '\t' << x1 << '\t' << y1 << std::endl;
         }
     }
 }

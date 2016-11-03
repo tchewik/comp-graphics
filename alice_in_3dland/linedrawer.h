@@ -8,4 +8,4 @@ public:
 	void draw(int x0, int y0, int x1, int y1, int color);
 };
 
-#endif // _LINE_H
+#endif // _LINE_DRAWER_H
