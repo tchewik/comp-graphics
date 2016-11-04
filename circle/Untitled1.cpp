@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <time.h>
 
+int sqr(int base){
+	return base * base;
+}
+
 void MyCircle (int x, int y, int r, int color) 
 {int i=0, j=r; 
 
@@ -89,10 +93,36 @@ void MyCircle1(int _x, int _y, int radius, int color){
             }
 }
 
+void myCircle2(int _x, int _y, int radius, int color){
+	int i = 0, j = radius;
+	
+	while(j >= i){
+		int e = sqr(i) + sqr(j) - sqr(radius);
+		int ed = sqr(i + 1) + sqr(j) - sqr(radius);
+		int eg = sqr(i + 1) + sqr(j - 1) - sqr(radius);
+		int ev = sqr(i) + sqr(j - 1) - sqr(radius);
+		putpixel(_x+i, _y-j, color);
+		if (e > 0){
+			if (ed > 0){
+				_x++;
+				i++;
+			} else {
+				_x++;
+				_y--;
+				i++;
+				j--;
+			}
+		} else {
+			_y--;
+			j--;
+		}
+	}
+}
+
 int main(){
 	int gddriver = DETECT, gmode, errorcode;
 	initgraph(&gddriver, &gmode, "");
-	MyCircle1(129, 150, 260, 13);
+	MyCircle1(129, 150, 26, 13);
 	
 	getch();
 	closegraph();
