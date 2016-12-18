@@ -7,7 +7,7 @@
 
 class Model {
 private:
-	std::vector<std::vector<float> > _worldPoins;
+	std::vector<std::vector<float> > _worldPoints;
 	std::vector<std::vector<float> > _viewPoints;
 	std::vector<std::vector<float> > _dispPoints;
 	std::vector<std::vector<int> > _flats;

@@ -38,7 +38,7 @@ Model::Model(char *path, LineDrawer *drawer, int width, int height){
 			std::vector<float> point(3);
 			for (int i = 0; i < 3; i++) iss >> point[i];
 			
-			this->_worldPoins.push_back(point);
+			this->_worldPoints.push_back(point);
 		}
 		else if (!line.compare(0, 2, "f ")){
 			iss >> trashC;
@@ -67,6 +67,10 @@ Model::Model(char *path, LineDrawer *drawer, int width, int height){
 }
 
 Model::~Model(){}	
+
+void ssetViewPoints(){
+
+}
 
 void setDispPoints(){
 	_dispPoints = _worldPoints;
