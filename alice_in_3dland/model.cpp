@@ -75,6 +75,12 @@ void setViewPoints(){
 
 		_viewPoints[1][i] = viewMatrix[1][0] * _worldPoints[0][i] * viewMatrix[1][1] * 
 							_worldPoints[1][i] * viewMatrix[1][2] * _worldPoints[2][i] + viewMatrix[1][3];
+
+		_viewPoints[2][i] = viewMatrix[2][0] * _worldPoints[0][i] * viewMatrix[2][1] * 
+					_worldPoints[1][i] * viewMatrix[2][2] * _worldPoints[2][i] + viewMatrix[2][3];
+
+		_persPoints[0][i] = (RHO/(2*_viewPoints[2][i]))*_viewPoints[0][i];
+		_persPoints[1][i] = (RHO/(2*_viewPoints[2][i]))*_viewPoints[1][i];
 	}
 }
 
