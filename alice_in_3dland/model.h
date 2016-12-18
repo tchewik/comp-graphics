@@ -7,8 +7,10 @@
 
 class Model {
 private:
-	std::vector<std::vector<float> > points_;
-	std::vector<std::vector<int> > flats_;
+	std::vector<std::vector<float> > _worldPoins;
+	std::vector<std::vector<float> > _viewPoints;
+	std::vector<std::vector<float> > _dispPoints;
+	std::vector<std::vector<int> > _flats;
 	LineDrawer *drawer;
 	int width;
 	int height;
@@ -16,7 +18,8 @@ private:
 public:
 	Model(char *path, LineDrawer *drawer, int width = 100, int height = 100);
 	~Model();
-	void showPoints();
+	void setDispPoints();
+	//void showPoints();
 	void showFlats();
 	void draw();
 };

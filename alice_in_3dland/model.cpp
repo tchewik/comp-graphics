@@ -38,7 +38,7 @@ Model::Model(char *path, LineDrawer *drawer, int width, int height){
 			std::vector<float> point(3);
 			for (int i = 0; i < 3; i++) iss >> point[i];
 			
-			this->points_.push_back(point);
+			this->_worldPoins.push_back(point);
 		}
 		else if (!line.compare(0, 2, "f ")){
 			iss >> trashC;
@@ -46,12 +46,14 @@ Model::Model(char *path, LineDrawer *drawer, int width, int height){
 			std::vector<int> flat;
 			while (iss >> index >> trashC >> trashC >> trashI) flat.push_back(--index);
 			
-			this->flats_.push_back(flat);
+			this->_flats.push_back(flat);
 		}
 		
 	}
 	
-	//std::clog << "# v#" << this->points_.size() << "; f#" << this->flats_.size() << std::endl;
+	//std::clog << "# v#" << this->_points.size() << "; f#" << this->_flats.size() << std::endl;
+	
+	setDispPoints();
 	
 	// -- *drawer --
 	
@@ -66,33 +68,42 @@ Model::Model(char *path, LineDrawer *drawer, int width, int height){
 
 Model::~Model(){}	
 
+void setDispPoints(){
+	_dispPoints = _worldPoints;
+	
+	// magic goes there!
+	
+}
+
+/*
 void Model::showPoints(){
 	
-	for (int i = 0; i < this->points_.size(); i++){
-		for (int j = 0; j < this->points_[i].size(); j++)
-			std::cout << this->points_[i][j] << '\t';
+	for (int i = 0; i < this->_points.size(); i++){
+		for (int j = 0; j < this->_points[i].size(); j++)
+			std::cout << this->_points[i][j] << '\t';
 		std::cout << std::endl;
 	}
 	
 }
+*/
 
 void Model::showFlats(){
-	for(int i = 0; i < this->flats_.size(); i++) {
-		for (int j = 0; j < this->flats_[i].size(); j++)
-			std::cout << this->flats_[i][j] << '\t';
+	for(int i = 0; i < this->_flats.size(); i++) {
+		for (int j = 0; j < this->_flats[i].size(); j++)
+			std::cout << this->_flats[i][j] << '\t';
 		std::cout << std::endl;
 	}
 }
 
 void Model::draw(){
 	
-	for (int i = 0; i < this->flats_.size(); i++) {
+	for (int i = 0; i < this->_flats.size(); i++) {
 		
-        std::vector<int> flat = this->flats_[i];
+        std::vector<int> flat = this->_flats[i];
         for (int j = 0; j < 3; j++) {
 
-        	std::vector<float> v0 = points_[flat[j]];
-            std::vector<float> v1 = points_[flat[(j + 1) % 3]];
+        	std::vector<float> v0 = _dispPoints[flat[j]];
+            std::vector<float> v1 = _dispPoints[flat[(j + 1) % 3]];
             int x0 = (v0[0] + 1.) * (this->width / 2.); 
             int y0 = (v0[1] + 1.) * (this->height / 2.);
             int x1 = (v1[0] + 1.) * (this->width / 2.);
