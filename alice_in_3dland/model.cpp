@@ -51,9 +51,17 @@ Model::Model(char *path, LineDrawer *drawer, int width, int height){
 		
 	}
 	
-	//std::clog << "# v#" << this->_points.size() << "; f#" << this->_flats.size() << std::endl;
+	// std::clog << "# v#" << this->_worldPoints.size() << "; f#" << this->_flats.size() << std::endl;
 	
 	setDispPoints();
+	
+	/*
+	std::clog << "# v#" << this->_viewPoints.size() << "; f#" << this->_flats.size() << std::endl;
+	std::clog << "# v#" << this->_persPoints.size() << "; f#" << this->_flats.size() << std::endl;
+	std::clog << "# v#" << this->_dispPoints.size() << "; f#" << this->_flats.size() << std::endl;
+	*/
+	
+	this->showPoints();
 	
 	// -- *drawer --
 	
@@ -120,17 +128,35 @@ void Model::setDispPoints(){
 
 }
 
-/*
+
 void Model::showPoints(){
 	
-	for (int i = 0; i < this->_points.size(); i++){
-		for (int j = 0; j < this->_points[i].size(); j++)
-			std::cout << this->_points[i][j] << '\t';
+	std::cout << "--WORLD POINTS--" << std::endl;
+	
+	for (int i = 0; i < this->_worldPoints.size(); i++){
+		for (int j = 0; j < this->_worldPoints[i].size(); j++)
+			std::cout << this->_worldPoints[i][j] << '\t';
+		std::cout << std::endl;
+	}
+	
+	std::cout << "--VIEW POINTS--" << std::endl;
+	
+	for (int i = 0; i < this->_viewPoints.size(); i++){
+		for (int j = 0; j < this->_viewPoints[i].size(); j++)
+			std::cout << this->_viewPoints[i][j] << '\t';
+		std::cout << std::endl;
+	}
+	
+	std::cout << "--PERS POINTS--" << std::endl;
+	
+	for (int i = 0; i < this->_persPoints.size(); i++){
+		for (int j = 0; j < this->_persPoints[i].size(); j++)
+			std::cout << this->_persPoints[i][j] << '\t';
 		std::cout << std::endl;
 	}
 	
 }
-*/
+
 
 void Model::showFlats(){
 	for(int i = 0; i < this->_flats.size(); i++) {

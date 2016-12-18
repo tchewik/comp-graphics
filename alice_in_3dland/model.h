@@ -19,7 +19,7 @@ private:
 public:
 	Model(char *path, LineDrawer *drawer, int width = 100, int height = 100);
 	~Model();
-	//void showPoints();
+	void showPoints();
 	void setViewPoints();
 	void setDispPoints();
 	void showFlats();
