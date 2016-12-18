@@ -4,14 +4,27 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <math.h>
+
+#define RHO 400
+#define THETA 1
+#define PHI 1
+
+double viewMatrix[4][4] = {
+    {-sin(THETA),cos(THETA),0,0},
+    {-sin(PHI)*cos(THETA),-sin(PHI)*sin(THETA),sin(PHI),0},
+    {-sin(PHI)*cos(THETA),-sin(PHI)*sin(THETA),-cos(PHI),RHO},
+    {0,0,0,1}
+};
 
 Model::Model(char *path, LineDrawer *drawer, int width, int height){
 	
-	//	-- *path --
-	
 	std::ifstream in;
 	in.open(path, std::ifstream::in);
-	if (in.fail()) return;
+	if (in.fail()){
+		std::clog << "Не открываеца";
+		return;
+	}
 
 	std::string line;
 	while (!in.eof()){
@@ -38,7 +51,7 @@ Model::Model(char *path, LineDrawer *drawer, int width, int height){
 		
 	}
 	
-	// std::clog << "# v#" << this->points_.size() << "; f#" << this->flats_.size() << std::endl;
+	//std::clog << "# v#" << this->points_.size() << "; f#" << this->flats_.size() << std::endl;
 	
 	// -- *drawer --
 	
@@ -65,7 +78,6 @@ void Model::showPoints(){
 
 void Model::showFlats(){
 	for(int i = 0; i < this->flats_.size(); i++) {
-		std::cout << "...68..." << std::endl;
 		for (int j = 0; j < this->flats_[i].size(); j++)
 			std::cout << this->flats_[i][j] << '\t';
 		std::cout << std::endl;

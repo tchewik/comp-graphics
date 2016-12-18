@@ -4,6 +4,7 @@
 #include <vector>
 #include "linedrawer.h"
 
+
 class Model {
 private:
 	std::vector<std::vector<float> > points_;
@@ -11,6 +12,7 @@ private:
 	LineDrawer *drawer;
 	int width;
 	int height;
+	
 public:
 	Model(char *path, LineDrawer *drawer, int width = 100, int height = 100);
 	~Model();
