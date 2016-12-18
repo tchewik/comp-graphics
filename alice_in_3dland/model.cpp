@@ -83,21 +83,21 @@ void Model::setViewPoints(){
 		point3D[2] = viewMatrix[2][0] * _worldPoints[0][i] * viewMatrix[2][1] * 
 					_worldPoints[1][i] * viewMatrix[2][2] * _worldPoints[2][i] + viewMatrix[2][3];
 
-		_viewPoints.push_back(point3D);
-
+		
 		std::vector<float> point2D(2);
 		
-		point2D[0] = (RHO/(2*_viewPoints[i][2]))*_viewPoints[i][0];
-		point2D[1] = (RHO/(2*_viewPoints[i][2]))*_viewPoints[i][1];
+		point2D[0] = (RHO/(2*point3D[2]))*point3D[0];
+		point2D[1] = (RHO/(2*point3D[2]))*point3D[1];
+		
+		_viewPoints.push_back(point3D);
 		_persPoints.push_back(point2D);
 		
 	}
 }
 
 void Model::setDispPoints(){
-	_dispPoints = _worldPoints;
+	//_dispPoints = _worldPoints;
 	
-	// magic goes there!
 	int ij[2][2] = {
 			{ 100, 100 },
 			{ 400, 400 }
