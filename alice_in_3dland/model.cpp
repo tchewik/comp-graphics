@@ -91,13 +91,13 @@ void Model::setViewPoints(){
 	}
 }
 
-void setDispPoints(){
+/*void setDispPoints(){
 	_dispPoints = _worldPoints;
 	
 	// magic goes there!
 	
 }
-
+*/
 /*
 void Model::showPoints(){
 	

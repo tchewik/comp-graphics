@@ -21,6 +21,7 @@ public:
 	~Model();
 	void setDispPoints();
 	//void showPoints();
+	void setViewPoints();
 	void showFlats();
 	void draw();
 };
