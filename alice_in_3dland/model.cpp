@@ -87,8 +87,8 @@ void Model::setViewPoints(){
 
 		std::vector<float> point2D(2);
 		
-		point2D[0] = (RHO/(2*_viewPoints[2][i]))*_viewPoints[0][i];
-		point2D[1] = (RHO/(2*_viewPoints[2][i]))*_viewPoints[1][i];
+		point2D[0] = (RHO/(2*_viewPoints[i][2]))*_viewPoints[i][0];
+		point2D[1] = (RHO/(2*_viewPoints[i][2]))*_viewPoints[i][1];
 		_persPoints.push_back(point2D);
 		
 	}
