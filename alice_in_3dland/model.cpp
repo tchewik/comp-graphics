@@ -69,18 +69,25 @@ Model::Model(char *path, LineDrawer *drawer, int width, int height){
 Model::~Model(){}	
 
 void Model::setViewPoints(){
+	float somepoint;
 	for (int i = 0; i < _worldPoints.size(); i++) {
-		_viewPoints[0][i] = viewMatrix[0][0] * _worldPoints[0][i] * viewMatrix[0][1] * 
+		somepoint = viewMatrix[0][0] * _worldPoints[0][i] * viewMatrix[0][1] * 
 							_worldPoints[1][i] * viewMatrix[0][2] * _worldPoints[2][i] + viewMatrix[0][3]; 
 
-		_viewPoints[1][i] = viewMatrix[1][0] * _worldPoints[0][i] * viewMatrix[1][1] * 
+		_viewPoints[i].push_back(somepoint);
+
+		somepoint = viewMatrix[1][0] * _worldPoints[0][i] * viewMatrix[1][1] * 
 							_worldPoints[1][i] * viewMatrix[1][2] * _worldPoints[2][i] + viewMatrix[1][3];
 
-		_viewPoints[2][i] = viewMatrix[2][0] * _worldPoints[0][i] * viewMatrix[2][1] * 
+		_viewPoints[i].push_back(somepoint);
+
+		somepoint = viewMatrix[2][0] * _worldPoints[0][i] * viewMatrix[2][1] * 
 					_worldPoints[1][i] * viewMatrix[2][2] * _worldPoints[2][i] + viewMatrix[2][3];
 
-		_persPoints[0][i] = (RHO/(2*_viewPoints[2][i]))*_viewPoints[0][i];
-		_persPoints[1][i] = (RHO/(2*_viewPoints[2][i]))*_viewPoints[1][i];
+		_viewPoints[i].push_back(somepoint);
+
+		_persPoints[i].push_back((RHO/(2*_viewPoints[2][i]))*_viewPoints[0][i]);
+		_persPoints[i].push_back((RHO/(2*_viewPoints[2][i]))*_viewPoints[1][i]);
 	}
 }
 
