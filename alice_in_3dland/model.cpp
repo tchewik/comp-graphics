@@ -68,7 +68,7 @@ Model::Model(char *path, LineDrawer *drawer, int width, int height){
 
 Model::~Model(){}	
 
-void setViewPoints(){
+void Model::setViewPoints(){
 	for (int i = 0; i < _worldPoints.size(); i++) {
 		_viewPoints[0][i] = viewMatrix[0][0] * _worldPoints[0][i] * viewMatrix[0][1] * 
 							_worldPoints[1][i] * viewMatrix[0][2] * _worldPoints[2][i] + viewMatrix[0][3]; 
