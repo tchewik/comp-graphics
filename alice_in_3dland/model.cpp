@@ -72,24 +72,24 @@ void Model::setViewPoints(){
 
 	for (int i = 0; i < _worldPoints.size(); i++) {
 		
-		std::vector<float> point(3);
+		std::vector<float> point3D(3);
 		
-		point[0] = viewMatrix[0][0] * _worldPoints[0][i] * viewMatrix[0][1] * 
+		point3D[0] = viewMatrix[0][0] * _worldPoints[0][i] * viewMatrix[0][1] * 
 							_worldPoints[1][i] * viewMatrix[0][2] * _worldPoints[2][i] + viewMatrix[0][3]; 
 
-		point[1] = viewMatrix[1][0] * _worldPoints[0][i] * viewMatrix[1][1] * 
+		point3D[1] = viewMatrix[1][0] * _worldPoints[0][i] * viewMatrix[1][1] * 
 							_worldPoints[1][i] * viewMatrix[1][2] * _worldPoints[2][i] + viewMatrix[1][3];
 
-		point[2] = viewMatrix[2][0] * _worldPoints[0][i] * viewMatrix[2][1] * 
+		point3D[2] = viewMatrix[2][0] * _worldPoints[0][i] * viewMatrix[2][1] * 
 					_worldPoints[1][i] * viewMatrix[2][2] * _worldPoints[2][i] + viewMatrix[2][3];
 
-		_viewPoints[i].push_back(point);
+		_viewPoints.push_back(point3D);
 
 		std::vector<float> point2D(2);
 		
 		point2D[0] = (RHO/(2*_viewPoints[2][i]))*_viewPoints[0][i];
 		point2D[1] = (RHO/(2*_viewPoints[2][i]))*_viewPoints[1][i];
-		_persPoints[i].push_back(point2D);
+		_persPoints.push_back(point2D);
 		
 	}
 }
@@ -107,15 +107,15 @@ void Model::setDispPoints(){
 			{ 100, 100	}
 		};
 		
-	setPerspCoord();
+	setViewPoints();
 	
 	for (int i = 0; i < _persPoints.size(); i++) {
 		std::vector<float> point(2);
 		
-		point[0] = ij[1][0] + (PerspCoord[1][0] - xy[1][0]) * (ij[0][0] - ij[1][0]) / (xy[0][0] - xy[1][0])
-		point[1] = ij[0][1] + (_persPoints[i][1] - xy[0][1]) * (ij[1][1] - ij[0][1]) / (xy[1][1] - xy[0][1]))
+		point[0] = ij[1][0] + (_persPoints[i][0] - xy[1][0]) * (ij[0][0] - ij[1][0]) / (xy[0][0] - xy[1][0]);
+		point[1] = ij[0][1] + (_persPoints[i][1] - xy[0][1]) * (ij[1][1] - ij[0][1]) / (xy[1][1] - xy[0][1]);
 		
-		this->_dispPoints.push_back(point);
+		_dispPoints.push_back(point);
 	}
 
 }
