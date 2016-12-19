@@ -1,6 +1,5 @@
 #include "model.h"
 #include "linedrawer.h"
-#include<conio.h>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -13,8 +12,7 @@
 #define PHI 1
 
 
-
-Model::Model(char *path, LineDrawer *drawer, int width, int height){
+Model::Model(char *path, LineDrawer *drawer){
 	
 	std::ifstream in;
 	in.open(path, std::ifstream::in);
@@ -58,12 +56,7 @@ Model::Model(char *path, LineDrawer *drawer, int width, int height){
 	// -- *drawer --
 	
 	this->drawer = drawer;
-	
-	
-	// -- width, height --
-	
-	this->width = width;
-	this->height = height;
+
 }
 
 Model::~Model(){}	
@@ -195,6 +188,8 @@ float Model::getH(int i){
 
 void Model::draw(){
 	
+	drawer->clearScreen();
+	
 	for (int i = 0; i < this->_flats.size(); i++) {
 		
 		float h = this->getH(i);
@@ -235,25 +230,12 @@ void Model::setViewMatrix(int rho, int theta, int phi){
 
 
 void Model::cartoonDraw(){
+	
 	for (int i = 0; i < 8; i++){
-		drawer->clearScreen();
-		this->setViewMatrix(RHO, THETA+ 12*i, PHI);
+		this->setViewMatrix(RHO, i, PHI);
 		this->setDispPoints();
 		this->draw();
-		Sleep(1000);
+		Sleep(500);
 	}
-	
-	/*
-	this->setViewMatrix(RHO, THETA, PHI);
-	this->setDispPoints();
-	this->showPoints();
-	this->draw();
-	
-	clearviewport();
-	
-	this->setViewMatrix(RHO, THETA, PHI+4);
-	this->setDispPoints();
-	this->showPoints();
-	this->draw();
-	*/
+
 }
