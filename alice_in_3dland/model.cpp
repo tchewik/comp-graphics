@@ -1,5 +1,6 @@
 #include "model.h"
 #include "linedrawer.h"
+#include<conio.h>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -206,14 +207,14 @@ void Model::draw(){
 	        	std::vector<float> v0 = _dispPoints[flat[j]];
 	            std::vector<float> v1 = _dispPoints[flat[(j + 1) % 3]];
 	
-	            drawer->draw(v0[0], v0[1], v1[0], v1[1], 15);
+	            drawer->draw(v0[0], v0[1], v1[0], v1[1], 10);
         	}
 		}
     }
 }
 
 void Model::setViewMatrix(int rho, int theta, int phi){
-	std::clog << "viewMatrix mit phi = " << phi << std::endl;
+	
 	viewMatrix[0][0] = -sin(theta);
 	viewMatrix[0][1] = cos(theta);
 	viewMatrix[0][2] = 0;
@@ -234,16 +235,25 @@ void Model::setViewMatrix(int rho, int theta, int phi){
 
 
 void Model::cartoonDraw(){
-	
-	for (int i = 0; i < 10; i++){
-		this->setViewMatrix(RHO, THETA, PHI);
+	for (int i = 0; i < 8; i++){
+		drawer->clearScreen();
+		this->setViewMatrix(RHO, THETA+ 12*i, PHI);
+		this->setDispPoints();
 		this->draw();
 		Sleep(1000);
 	}
 	
+	/*
 	this->setViewMatrix(RHO, THETA, PHI);
-	this->showPoints();
 	this->setDispPoints();
 	this->showPoints();
 	this->draw();
+	
+	clearviewport();
+	
+	this->setViewMatrix(RHO, THETA, PHI+4);
+	this->setDispPoints();
+	this->showPoints();
+	this->draw();
+	*/
 }
