@@ -10,6 +10,7 @@
 #define RHO 400
 #define THETA 1
 #define PHI 1
+#define EPSILON 0.05
 
 
 Model::Model(char *path, LineDrawer *drawer){
@@ -178,9 +179,9 @@ float Model::getH(int i){
 	std::vector<float> b = this->_viewPoints[flat[1]];
 	std::vector<float> c = this->_viewPoints[flat[2]];
 	
-	h = a[0] * (b[1] * c[2] - c[1] * a[2]) - 
-      b[0] * (a[1] * c[2] - c[1] * b[2]) +
-      c[0] * (a[1] * b[2] - b[1] * a[2]);
+	h = a[0] * (b[1] * c[2] - c[1] * b[2]) - 
+		b[0] * (a[1] * c[2] - c[1] * a[2]) +
+		c[0] * (a[1] * b[2] - b[1] * a[2]);
 
 	return h;
 }
@@ -194,7 +195,7 @@ void Model::draw(){
 		
 		float h = this->getH(i);
 		
-		if (h > 0){
+		if (h > 0 + EPSILON){
 			std::vector<int> flat = this->_flats[i];
     
 	        for (int j = 0; j < 3; j++) {
