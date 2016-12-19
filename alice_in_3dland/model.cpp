@@ -82,14 +82,20 @@ void Model::setViewPoints(){
 		
 		std::vector<float> point3D(3);
 		
-		point3D[0] = viewMatrix[0][0] * _worldPoints[0][i] * viewMatrix[0][1] * 
-							_worldPoints[1][i] * viewMatrix[0][2] * _worldPoints[2][i] + viewMatrix[0][3]; 
+		point3D[0] = viewMatrix[0][0] * _worldPoints[i][0] +
+					 viewMatrix[0][1] * _worldPoints[i][1] +
+					 viewMatrix[0][2] * _worldPoints[i][2] + 
+					 viewMatrix[0][3]; 
 
-		point3D[1] = viewMatrix[1][0] * _worldPoints[0][i] * viewMatrix[1][1] * 
-							_worldPoints[1][i] * viewMatrix[1][2] * _worldPoints[2][i] + viewMatrix[1][3];
+		point3D[1] = viewMatrix[1][0] * _worldPoints[i][0] +
+					 viewMatrix[1][1] * _worldPoints[i][1] +
+					 viewMatrix[1][2] * _worldPoints[i][2] + 
+					 viewMatrix[1][3];
 
-		point3D[2] = viewMatrix[2][0] * _worldPoints[0][i] * viewMatrix[2][1] * 
-					_worldPoints[1][i] * viewMatrix[2][2] * _worldPoints[2][i] + viewMatrix[2][3];
+		point3D[2] = viewMatrix[2][0] * _worldPoints[i][0] +
+					 viewMatrix[2][1] * _worldPoints[i][1] +
+					 viewMatrix[2][2] * _worldPoints[i][2] + 
+					 viewMatrix[2][3];
 
 		
 		std::vector<float> point2D(2);
@@ -131,6 +137,7 @@ void Model::setDispPoints(){
 
 void Model::showPoints(){
 	
+	/*
 	std::cout << "--WORLD POINTS--" << std::endl;
 	
 	for (int i = 0; i < this->_worldPoints.size(); i++){
@@ -138,6 +145,7 @@ void Model::showPoints(){
 			std::cout << this->_worldPoints[i][j] << '\t';
 		std::cout << std::endl;
 	}
+	*/
 	
 	std::cout << "--VIEW POINTS--" << std::endl;
 	
@@ -155,6 +163,14 @@ void Model::showPoints(){
 		std::cout << std::endl;
 	}
 	
+	std::cout << "--DISP POINTS--" << std::endl;
+	
+	for (int i = 0; i < this->_dispPoints.size(); i++){
+		for (int j = 0; j < this->_dispPoints[i].size(); j++)
+			std::cout << this->_dispPoints[i][j] << '\t';
+		std::cout << std::endl;
+	}
+	
 }
 
 
@@ -165,6 +181,7 @@ void Model::showFlats(){
 		std::cout << std::endl;
 	}
 }
+
 
 void Model::draw(){
 	
@@ -187,3 +204,5 @@ void Model::draw(){
     }
     
 }
+
+
