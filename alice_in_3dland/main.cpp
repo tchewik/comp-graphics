@@ -13,7 +13,8 @@ int main(int argc, char **argv){
 	//modifyFormatObj("bashka.obj", "formattedbashka.obj");
 	//(Model("formattedbashka.obj", &drawer, 700, 700)).draw();
 	
-	(Model("input.obj", &drawer, 70, 70)).draw();
+	//(Model("input.obj", &drawer, 70, 70)).draw();
+	(Model("input.obj", &drawer, 70, 70)).cartoonDraw();
 		
 	_getch();
 

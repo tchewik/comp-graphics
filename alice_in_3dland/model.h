@@ -12,6 +12,7 @@ private:
 	std::vector<std::vector<float> > _persPoints;
 	std::vector<std::vector<float> > _dispPoints;
 	std::vector<std::vector<int> > _flats;
+	float viewMatrix[4][4];
 	LineDrawer *drawer;
 	int width;
 	int height;
@@ -24,8 +25,10 @@ public:
 	void showPoints();
 	void setViewPoints();
 	void setDispPoints();
+	void setViewMatrix(int rho, int theta, int phi);
 	void showFlats();
 	void draw();
+	void cartoonDraw();
 };
 
 #endif // _MODEL_H

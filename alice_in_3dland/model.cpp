@@ -5,17 +5,13 @@
 #include <fstream>
 #include <sstream>
 #include <math.h>
+#include <windows.h>
 
 #define RHO 400
 #define THETA 1
 #define PHI 1
 
-double viewMatrix[4][4] = {
-    {-sin(THETA),cos(THETA),0,0},
-    {-sin(PHI)*cos(THETA),-sin(PHI)*sin(THETA),sin(PHI),0},
-    {-sin(PHI)*cos(THETA),-sin(PHI)*sin(THETA),-cos(PHI),RHO},
-    {0,0,0,1}
-};
+
 
 Model::Model(char *path, LineDrawer *drawer, int width, int height){
 	
@@ -53,16 +49,10 @@ Model::Model(char *path, LineDrawer *drawer, int width, int height){
 	
 	// std::clog << "# v#" << this->_worldPoints.size() << "; f#" << this->_flats.size() << std::endl;
 	
-	setDispPoints();
 	
-	/*
-	std::clog << "# v#" << this->_viewPoints.size() << "; f#" << this->_flats.size() << std::endl;
-	std::clog << "# v#" << this->_persPoints.size() << "; f#" << this->_flats.size() << std::endl;
-	std::clog << "# v#" << this->_dispPoints.size() << "; f#" << this->_flats.size() << std::endl;
-	*/
 	
 	// this->showPoints();
-	this->showFlats();
+	// this->showFlats();
 	
 	// -- *drawer --
 	
@@ -82,7 +72,7 @@ void Model::setViewPoints(){
 	for (int i = 0; i < _worldPoints.size(); i++) {
 		
 		std::vector<float> point3D(3);
-		
+
 		point3D[0] = viewMatrix[0][0] * _worldPoints[i][0] +
 					 viewMatrix[0][1] * _worldPoints[i][1] +
 					 viewMatrix[0][2] * _worldPoints[i][2] + 
@@ -97,7 +87,7 @@ void Model::setViewPoints(){
 					 viewMatrix[2][1] * _worldPoints[i][1] +
 					 viewMatrix[2][2] * _worldPoints[i][2] + 
 					 viewMatrix[2][3];
-
+		
 		
 		std::vector<float> point2D(2);
 		
@@ -106,11 +96,13 @@ void Model::setViewPoints(){
 		
 		_viewPoints.push_back(point3D);
 		_persPoints.push_back(point2D);
-		
 	}
 }
 
 void Model::setDispPoints(){
+	this->_viewPoints.clear();
+	this->_persPoints.clear();
+	this->_dispPoints.clear();
 	
 	int ij[2][2] = {
 			{ 100, 100 },
@@ -199,6 +191,7 @@ float Model::getH(int i){
 	return h;
 }
 
+
 void Model::draw(){
 	
 	for (int i = 0; i < this->_flats.size(); i++) {
@@ -219,4 +212,38 @@ void Model::draw(){
     }
 }
 
+void Model::setViewMatrix(int rho, int theta, int phi){
+	std::clog << "viewMatrix mit phi = " << phi << std::endl;
+	viewMatrix[0][0] = -sin(theta);
+	viewMatrix[0][1] = cos(theta);
+	viewMatrix[0][2] = 0;
+	viewMatrix[0][3] = 0;
+	viewMatrix[1][0] = -sin(phi)*cos(theta);
+	viewMatrix[1][1] = -sin(phi)*sin(theta);
+	viewMatrix[1][2] = sin(phi);
+	viewMatrix[1][3] = 0;
+	viewMatrix[2][0] = -sin(phi)*cos(theta);
+	viewMatrix[2][1] = -sin(phi)*sin(theta);
+	viewMatrix[2][2] = -cos(phi);
+	viewMatrix[2][3] = rho;
+	viewMatrix[3][0] = 0;
+	viewMatrix[3][1] = 0;
+	viewMatrix[3][2] = 0;
+	viewMatrix[3][3] = 1;
+}
 
+
+void Model::cartoonDraw(){
+	
+	for (int i = 0; i < 10; i++){
+		this->setViewMatrix(RHO, THETA, PHI);
+		this->draw();
+		Sleep(1000);
+	}
+	
+	this->setViewMatrix(RHO, THETA, PHI);
+	this->showPoints();
+	this->setDispPoints();
+	this->showPoints();
+	this->draw();
+}
