@@ -61,7 +61,8 @@ Model::Model(char *path, LineDrawer *drawer, int width, int height){
 	std::clog << "# v#" << this->_dispPoints.size() << "; f#" << this->_flats.size() << std::endl;
 	*/
 	
-	this->showPoints();
+	// this->showPoints();
+	this->showFlats();
 	
 	// -- *drawer --
 	
@@ -110,7 +111,6 @@ void Model::setViewPoints(){
 }
 
 void Model::setDispPoints(){
-	//_dispPoints = _worldPoints;
 	
 	int ij[2][2] = {
 			{ 100, 100 },
@@ -183,22 +183,40 @@ void Model::showFlats(){
 }
 
 
+float Model::getH(int i){
+	
+	float h;
+	std::vector<int> flat = this->_flats[i];
+	
+	std::vector<float> a = this->_viewPoints[flat[0]];
+	std::vector<float> b = this->_viewPoints[flat[1]];
+	std::vector<float> c = this->_viewPoints[flat[2]];
+	
+	h = a[0] * (b[1] * c[2] - c[1] * a[2]) - 
+      b[0] * (a[1] * c[2] - c[1] * b[2]) +
+      c[0] * (a[1] * b[2] - b[1] * a[2]);
+
+	return h;
+}
+
 void Model::draw(){
 	
 	for (int i = 0; i < this->_flats.size(); i++) {
 		
-        std::vector<int> flat = this->_flats[i];
-        for (int j = 0; j < 3; j++) {
-
-        	std::vector<float> v0 = _dispPoints[flat[j]];
-            std::vector<float> v1 = _dispPoints[flat[(j + 1) % 3]];
-
-            drawer->draw(v0[0], v0[1], v1[0], v1[1], 15);
-            
-        }
-        
-    }
+		float h = this->getH(i);
+		
+		if (h > 0){
+			std::vector<int> flat = this->_flats[i];
     
+	        for (int j = 0; j < 3; j++) {
+	
+	        	std::vector<float> v0 = _dispPoints[flat[j]];
+	            std::vector<float> v1 = _dispPoints[flat[(j + 1) % 3]];
+	
+	            drawer->draw(v0[0], v0[1], v1[0], v1[1], 15);
+        	}
+		}
+    }
 }
 
 

@@ -15,6 +15,8 @@ private:
 	LineDrawer *drawer;
 	int width;
 	int height;
+	float getH(int i);
+	
 	
 public:
 	Model(char *path, LineDrawer *drawer, int width = 100, int height = 100);
